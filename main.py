@@ -33,7 +33,7 @@ class Tag(Base):
 
 class Test(Base):
     __tablename__ = "test"
-    month_Name = Column(String, primary_key=True, index=True)
+    month_name = Column(String, primary_key=True, index=True)
     # Add your columns here, for example:
     sales = Column(Integer)
 
@@ -196,7 +196,7 @@ def get_tags():
         return [
             {
                 "sales": tag.sales,
-                "month_Name": tag.month_Name,
+                "month_name": tag.month_name,
             }
             for tag in tags
         ]
