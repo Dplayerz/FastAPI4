@@ -2,7 +2,7 @@ import os
 import threading
 from fastapi import FastAPI
 from psycopg2 import OperationalError
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
@@ -200,5 +200,15 @@ def get_tags():
             }
             for tag in tags
         ]
+    finally:
+        db.close()
+
+
+@app.get("/test_total_sales")
+def get_total_sales():
+    db = SessionLocal()
+    try:
+        total = db.query(func.sum(Test.sales)).scalar()
+        return {"total_sales": total or 0}
     finally:
         db.close()
