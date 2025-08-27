@@ -12,6 +12,8 @@ import pytz
 from paho.mqtt.client import Client as MQTTClient
 from fastapi.middleware.cors import CORSMiddleware
 
+from routers import tools
+
 
 
 # Database configuration
@@ -212,3 +214,6 @@ def get_total_sales():
         return {"total_sales": total or 0}
     finally:
         db.close()
+
+
+app.include_router(tools.router)  
