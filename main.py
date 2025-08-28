@@ -1,3 +1,4 @@
+from itertools import count
 import os
 import threading
 from fastapi import FastAPI
@@ -211,7 +212,7 @@ def get_total_sales():
     db = SessionLocal()
     try:
         total = db.query(func.sum(Test.sales)).scalar()
-        return {"total_sales": total or 0}
+        return {"total_sales": total or 0}  # Always return an object
     finally:
         db.close()
 
